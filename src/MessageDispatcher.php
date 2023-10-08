@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus;
 
 use MiniBus\Envelope\Stamp\StampCollection;
 
 interface MessageDispatcher
 {
-    /**
-     * @return Envelope
-     */
-    public function dispatch(Message $message, StampCollection $stamps);
+    public function dispatch(Message $message, StampCollection $stamps): Envelope;
 }

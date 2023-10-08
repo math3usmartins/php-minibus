@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Envelope;
 
 use Closure;
@@ -23,7 +25,7 @@ final class EnvelopeCollection
     /**
      * @return Envelope[]
      */
-    public function items()
+    public function items(): array
     {
         return $this->items;
     }
@@ -31,15 +33,12 @@ final class EnvelopeCollection
     /**
      * @return self
      */
-    public function with(Envelope $envelope)
+    public function with(Envelope $envelope): self
     {
         return new self(array_merge($this->items, [$envelope]));
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->items);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Handler;
 
 use MiniBus\Envelope;
@@ -18,7 +20,7 @@ final class HandlerMiddleware implements Middleware
         $this->locator = $locator;
     }
 
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         $stamped = $this->locator->locate($envelope)
             ->handle($envelope)

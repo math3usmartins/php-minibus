@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Handler;
 
+use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
@@ -32,7 +35,7 @@ final class HandlerMiddlewareTest extends TestCase
         static::assertTrue($expectedEnvelope->stamps()->contains(new HandlerStamp()));
     }
 
-    public function itDoesAddStampScenarios()
+    public function itDoesAddStampScenarios(): Generator
     {
         $subject = 'some-subject';
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Handler\Locator;
 
 use MiniBus\Envelope;
@@ -21,12 +23,11 @@ final class SubjectLocator implements HandlerLocator
         $this->handlersPerSubject = $handlersPerSubject;
     }
 
-    public function locate(Envelope $envelope)
+    public function locate(Envelope $envelope): HandlerCollection
     {
         $subject = $envelope->message()->subject();
 
-        return isset($this->handlersPerSubject[$subject])
-            ? $this->handlersPerSubject[$subject]
-            : new HandlerCollection([]);
+        return $this->handlersPerSubject[$subject]
+            ?? new HandlerCollection([]);
     }
 }

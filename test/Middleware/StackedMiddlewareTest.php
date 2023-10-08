@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Middleware;
 
+use Generator;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
 use MiniBus\Middleware;
@@ -33,7 +36,7 @@ final class StackedMiddlewareTest extends TestCase
         );
     }
 
-    public function scenarios()
+    public function scenarios(): Generator
     {
         $current = new StubMiddleware();
         $nextViaConstructor = new StubMiddleware();

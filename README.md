@@ -22,6 +22,7 @@ Don't be fooled though, `MiniBus` is a modern package as you'll see below.
 | PHP | MiniBus |
 |-----|---------|
 | 5.6 | 1.x     |
+| 7.x | 2.x     |
 
 ## Inspiration
 
@@ -62,10 +63,10 @@ p.s. metrics generated using [Sonarqube](https://github.com/SonarSource/sonarqub
 
 | Measure                         | MiniBus | Messenger | MiniBus' Price |
 |---------------------------------|---------|-----------|----------------|
-| Lines of code (LOC)             | 337     | 4600      | 7%             |
-| Cyclomatic complexity           | 59      | 850       | 7%             |
-| ....................... per LOC | 0.17    | 0.18      | 94%            |
-| Cognitive complexity            | 12      | 760       | 1%             |
+| Lines of code (LOC)             | 356     | 4600      | 7%             |
+| Cyclomatic complexity           | 57      | 850       | 7%             |
+| ....................... per LOC | 0.16    | 0.18      | 88%            |
+| Cognitive complexity            | 10      | 760       | 1%             |
 | ....................... per LOC | 0.03    | 0.16      | 19%            |
 
 **notes**
@@ -88,10 +89,10 @@ p.s. metrics generated using [Sonarqube](https://github.com/SonarSource/sonarqub
 
 | Measure                         | MiniBus | SimpleBus | MiniBus' Price |
 |---------------------------------|---------|-----------|----------------|
-| Lines of code (LOC)             | 337     | 459       | 73%            |
-| Cyclomatic complexity           | 59      | 81        | 75%            |
-| ....................... per LOC | 0.17    | 0.18      | 94%            |
-| Cognitive complexity            | 12      | 37        | 32%            |
+| Lines of code (LOC)             | 356     | 459       | 77%            |
+| Cyclomatic complexity           | 57      | 81        | 70%            |
+| ....................... per LOC | 0.16    | 0.18      | 94%            |
+| Cognitive complexity            | 10      | 37        | 27%            |
 | ....................... per LOC | 0.03    | 0.08      | 37%            |
 
 **notes**

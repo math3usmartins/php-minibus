@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Envelope\Stamp;
 
 use MiniBus\Envelope\Stamp;
@@ -16,27 +18,23 @@ final class StubStamp implements Stamp
      */
     private $keyValue;
 
-    /**
-     * @param string $name
-     * @param string $keyValue
-     */
-    public function __construct($name, $keyValue)
+    public function __construct(string $name, string $keyValue)
     {
         $this->name = $name;
         $this->keyValue = $keyValue;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function keyValue()
+    public function keyValue(): string
     {
         return $this->keyValue;
     }
 
-    public function isEqualTo(Stamp $anotherStamp)
+    public function isEqualTo(Stamp $anotherStamp): bool
     {
         return ($anotherStamp instanceof self)
             && ($anotherStamp->name === $this->name)

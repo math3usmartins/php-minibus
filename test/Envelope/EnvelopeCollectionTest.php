@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Envelope;
 
 use Closure;
+use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\EnvelopeCollection;
@@ -29,7 +32,7 @@ final class EnvelopeCollectionTest extends TestCase
         static::assertEquals($expectedCollection, $givenCollection->map($closure));
     }
 
-    public function mapScenarios()
+    public function mapScenarios(): Generator
     {
         $message = new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']);
         $envelope = new BasicEnvelope($message, new StampCollection([]));

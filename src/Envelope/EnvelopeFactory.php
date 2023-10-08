@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Envelope;
 
 use MiniBus\Envelope;
@@ -8,8 +10,5 @@ use MiniBus\Message;
 
 interface EnvelopeFactory
 {
-    /**
-     * @return Envelope
-     */
-    public function create(Message $message, StampCollection $stamps);
+    public function create(Message $message, StampCollection $stamps): Envelope;
 }

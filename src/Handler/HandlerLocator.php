@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Handler;
 
 use MiniBus\Envelope;
 
 interface HandlerLocator
 {
-    /**
-     * @return HandlerCollection
-     */
-    public function locate(Envelope $envelope);
+    public function locate(Envelope $envelope): HandlerCollection;
 }

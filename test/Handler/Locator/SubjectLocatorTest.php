@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Handler\Locator;
 
+use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
@@ -28,7 +31,7 @@ final class SubjectLocatorTest extends TestCase
         static::assertEquals($expectedCollection, $locator->locate($envelope));
     }
 
-    public function scenarios()
+    public function scenarios(): Generator
     {
         $collection = new HandlerCollection([
             new StubHandler(),

@@ -1,16 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Envelope;
 
 interface Stamp
 {
-    /**
-     * @return string
-     */
-    public function name();
+    public function name(): string;
 
-    /**
-     * @return bool
-     */
-    public function isEqualTo(self $anotherStamp);
+    public function isEqualTo(self $anotherStamp): bool;
 }

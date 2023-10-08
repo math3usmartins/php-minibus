@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Middleware;
 
 use Closure;
@@ -19,10 +21,7 @@ final class CallbackMiddleware implements Middleware
         $this->callback = $callback;
     }
 
-    /**
-     * @return Envelope
-     */
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         return call_user_func($this->callback, $envelope, $next);
     }

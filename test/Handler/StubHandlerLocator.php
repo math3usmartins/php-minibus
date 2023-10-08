@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Handler;
 
 use MiniBus\Envelope;
@@ -18,7 +20,7 @@ final class StubHandlerLocator implements HandlerLocator
         $this->handlerCollection = $handlerCollection;
     }
 
-    public function locate(Envelope $envelope)
+    public function locate(Envelope $envelope): HandlerCollection
     {
         return $this->handlerCollection;
     }

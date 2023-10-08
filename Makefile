@@ -9,6 +9,12 @@ php-cs-fix:
 test:
 	docker compose run --rm php vendor/bin/phpunit
 
+.PHONY: phpstan
+phpstan:
+	docker compose run --rm php vendor/bin/phpstan analyse \
+		-c phpstan.neon \
+		-- src test
+
 .PHONY: sonar-scanner
 sonar-scanner:
 	docker compose run --rm sonar-scanner

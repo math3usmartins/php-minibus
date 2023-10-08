@@ -1,16 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus;
 
 interface Message
 {
-    /**
-     * @return string
-     */
-    public function subject();
+    public function subject(): string;
 
-    /**
-     * @return array
-     */
-    public function normalize();
+    public function normalize(): array;
 }

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Handler;
 
+use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
@@ -27,7 +30,7 @@ final class HandlerCollectionTest extends TestCase
         static::assertEquals($expected, $collection->handle($envelope));
     }
 
-    public function handleScenarios()
+    public function handleScenarios(): Generator
     {
         $subject = 'some-subject';
 

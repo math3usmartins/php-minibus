@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Handler;
 
 use Exception;
@@ -9,7 +11,7 @@ use MiniBus\Handler;
 final class StubHandler implements Handler
 {
     /**
-     * @var Envelope
+     * @var Envelope|null
      */
     private $result;
 
@@ -20,10 +22,8 @@ final class StubHandler implements Handler
 
     /**
      * @throws Exception
-     *
-     * @return Envelope
      */
-    public function handle(Envelope $envelope)
+    public function handle(Envelope $envelope): Envelope
     {
         if (!$this->result) {
             throw new Exception('This handler should not have been called');

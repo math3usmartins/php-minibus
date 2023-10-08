@@ -6,3 +6,4 @@
 /.phpmetrics
 /.scannerwork
 /coverage.xml
+/.php-cs-fixer.cache

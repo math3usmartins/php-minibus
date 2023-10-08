@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Middleware;
 
 use MiniBus\Envelope;
@@ -21,10 +23,7 @@ final class MiddlewareStack implements Middleware
         $this->middlewares = array_values($middlewares);
     }
 
-    /**
-     * @return Envelope
-     */
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         // the stack must be created at handle time, to call the next handler
         // as the last one.

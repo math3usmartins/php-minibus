@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Envelope;
 
 use MiniBus\Envelope;
@@ -24,10 +26,7 @@ final class BasicEnvelope implements Envelope
         $this->stamps = $stamps;
     }
 
-    /**
-     * @return Envelope
-     */
-    public function withStamp(Stamp $stamp)
+    public function withStamp(Stamp $stamp): Envelope
     {
         return new self(
             $this->message,
@@ -35,18 +34,12 @@ final class BasicEnvelope implements Envelope
         );
     }
 
-    /**
-     * @return StampCollection
-     */
-    public function stamps()
+    public function stamps(): StampCollection
     {
         return $this->stamps;
     }
 
-    /**
-     * @return Message
-     */
-    public function message()
+    public function message(): Message
     {
         return $this->message;
     }

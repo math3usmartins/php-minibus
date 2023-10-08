@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Handler;
 
 use MiniBus\Envelope;
@@ -17,10 +19,7 @@ final class HandlerCollection
         $this->handlers = $handlers;
     }
 
-    /**
-     * @return Envelope
-     */
-    public function handle(Envelope $envelope)
+    public function handle(Envelope $envelope): Envelope
     {
         return array_reduce(
             $this->handlers,

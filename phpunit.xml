@@ -5,7 +5,6 @@
          failOnRisky="true"
          failOnWarning="true"
          forceCoversAnnotation="true"
-         checkForUnintentionallyCoveredCode="true"
          beStrictAboutCoversAnnotation="false"
          bootstrap="vendor/autoload.php"
          beStrictAboutTestsThatDoNotTestAnything="true">

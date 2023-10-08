@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Envelope\Stamp;
 
 use MiniBus\Envelope\Stamp;

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Middleware;
 
+use Generator;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
 use MiniBus\Middleware\MiddlewareStack;
@@ -30,7 +33,7 @@ final class MiddlewareStackTest extends TestCase
         );
     }
 
-    public function scenarios()
+    public function scenarios(): Generator
     {
         yield 'it supports empty array' => [
             'stack' => new MiddlewareStack([]),
@@ -142,7 +145,7 @@ final class MiddlewareStackTest extends TestCase
         ];
     }
 
-    private function stubMessage()
+    private function stubMessage(): StubMessage
     {
         return new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']);
     }

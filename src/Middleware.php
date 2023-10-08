@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus;
 
 interface Middleware
 {
-    /**
-     * @return Envelope
-     */
-    public function handle(Envelope $envelope, self $next = null);
+    public function handle(Envelope $envelope, self $next = null): Envelope;
 }

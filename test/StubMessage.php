@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test;
 
 use MiniBus\Message;
@@ -21,11 +23,8 @@ final class StubMessage implements Message
      */
     private $body;
 
-    /**
-     * @param string $subject
-     */
     public function __construct(
-        $subject,
+        string $subject,
         array $headers,
         array $body
     ) {
@@ -34,18 +33,12 @@ final class StubMessage implements Message
         $this->body = $body;
     }
 
-    /**
-     * @return string
-     */
-    public function subject()
+    public function subject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @return array
-     */
-    public function normalize()
+    public function normalize(): array
     {
         return [
             'headers' => ['subject' => $this->subject] + $this->headers,

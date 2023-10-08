@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Middleware;
 
 use MiniBus\Envelope;
@@ -16,7 +18,7 @@ final class StubMiddleware implements Middleware
         $this->callNext = $callNext;
     }
 
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         $this->handled = true;
 
@@ -29,7 +31,7 @@ final class StubMiddleware implements Middleware
             : $envelope;
     }
 
-    public function handled()
+    public function handled(): bool
     {
         return $this->handled;
     }

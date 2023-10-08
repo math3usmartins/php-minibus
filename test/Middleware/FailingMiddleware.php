@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Test\Middleware;
 
 use Exception;
@@ -18,7 +20,7 @@ final class FailingMiddleware implements Middleware
         $this->exception = $exception;
     }
 
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         throw $this->exception;
     }

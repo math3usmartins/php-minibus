@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Envelope\Stamp;
 
 use MiniBus\Envelope\Stamp;
@@ -19,18 +21,12 @@ final class StampCollection
         $this->items = self::groupByName($items);
     }
 
-    /**
-     * @return self
-     */
-    public function with(Stamp $stamp)
+    public function with(Stamp $stamp): self
     {
         return new self(array_merge($this->flat(), [$stamp]));
     }
 
-    /**
-     * @return bool
-     */
-    public function contains(Stamp $stamp)
+    public function contains(Stamp $stamp): bool
     {
         $name = $stamp->name();
 
@@ -49,10 +45,8 @@ final class StampCollection
 
     /**
      * @param string $name
-     *
-     * @return self
      */
-    public function all($name)
+    public function all($name): self
     {
         $items = !empty($this->items[$name])
             ? $this->items[$name]
@@ -72,9 +66,8 @@ final class StampCollection
             ? array_reverse($this->items[$name])
             : [];
 
-        return isset($items[0])
-            ? $items[0]
-            : null;
+        return $items[0]
+            ?? null;
     }
 
     /**
@@ -82,7 +75,7 @@ final class StampCollection
      *
      * @return Stamp[][]
      */
-    private static function groupByName(array $items)
+    private static function groupByName(array $items): array
     {
         return array_reduce(
             $items,
@@ -99,7 +92,7 @@ final class StampCollection
     /**
      * @return Stamp[]
      */
-    private function flat()
+    private function flat(): array
     {
         return array_reduce(
             $this->items,

@@ -2,7 +2,7 @@
     "license": "MIT",
     "type": "library",
     "name": "math3usmartins/php-minibus",
-    "description": "MiniBus is a minimal and framework-agnostic message bus for PHP apps",
+    "description": "Minibus is a message bus created for legacy systems in PHP where modern implementations are not supported.",
     "autoload": {
         "psr-4": {
             "MiniBus\\": "src",
@@ -10,15 +10,16 @@
         }
     },
     "require": {
-        "php": "^5.6"
+        "php": "^7.0"
     },
     "suggest": {
         "ext-json": "*",
         "ext-pcntl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "phpunit/php-code-coverage": "^4.0",
-        "friendsofphp/php-cs-fixer": "^2.19"
+        "phpunit/phpunit": "^6.5",
+        "phpunit/php-code-coverage": "^5.3",
+        "friendsofphp/php-cs-fixer": "^2.19",
+        "phpstan/phpstan": "^0.9.3"
     }
 }

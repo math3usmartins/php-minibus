@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus;
 
 use MiniBus\Envelope\Stamp;
@@ -7,18 +9,9 @@ use MiniBus\Envelope\Stamp\StampCollection;
 
 interface Envelope
 {
-    /**
-     * @return Envelope
-     */
-    public function withStamp(Stamp $stamp);
+    public function withStamp(Stamp $stamp): self;
 
-    /**
-     * @return StampCollection
-     */
-    public function stamps();
+    public function stamps(): StampCollection;
 
-    /**
-     * @return Message
-     */
-    public function message();
+    public function message(): Message;
 }

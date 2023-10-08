@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MiniBus\Middleware;
 
 use MiniBus\Envelope;
@@ -23,7 +25,7 @@ final class StackedMiddleware implements Middleware
         $this->next = $next;
     }
 
-    public function handle(Envelope $envelope, Middleware $next = null)
+    public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {
         return $this->current->handle($envelope, $this->next ?: $next);
     }
