@@ -1,0 +1,35 @@
+services:
+  php:
+    build:
+      dockerfile: .docker/php/Dockerfile
+      context: ./
+      args:
+        WWW_DATA_UID: 1000
+        WWW_DATA_GID: 1000
+    working_dir: /var/www/app
+    user: www-data
+    entrypoint: ["/var/www/app/.docker/entrypoint.sh"]
+    command: "php"
+    environment:
+      COMPOSER_HOME: "/var/www/.composer"
+    volumes:
+      - ./:/var/www/app
+      - .docker/composer:/var/www/.composer
+
+  sonarqube:
+    image: sonarqube:lts-community
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+
+  sonar-scanner:
+    depends_on:
+      - sonarqube
+    image: sonarsource/sonar-scanner-cli
+    environment:
+      SONAR_HOST_URL: http://sonarqube:9000
+      SONAR_LOGIN: ~
+    volumes:
+      - ./:/usr/src
+
+volumes:
+  sonarqube_data: ~
