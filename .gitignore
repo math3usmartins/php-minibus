@@ -1,0 +1,9 @@
+/docker-compose.override.yml
+/.php_cs.cache
+/vendor
+/.docker/composer
+/.coverage
+/.phpmetrics
+/.scannerwork
+/coverage.xml
+/sonar-project.properties
