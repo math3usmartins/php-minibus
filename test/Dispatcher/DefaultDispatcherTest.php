@@ -21,22 +21,23 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 final class DefaultDispatcherTest extends TestCase
 {
     /**
-     * @dataProvider scenarios
+     * @dataProvider provideDispatchCases
      */
     public function testDispatch(
         Closure $dispatcherFactory,
         Message $message,
         StampCollection $stampCollection,
-        Closure $assertionCallback
-    ) {
+        Closure $assertionCallback,
+    ): void {
         /** @var DefaultDispatcher $dispatcher */
         $dispatcher = $dispatcherFactory();
-        static::assertInstanceOf(DefaultDispatcher::class, $dispatcher);
+        self::assertInstanceOf(DefaultDispatcher::class, $dispatcher);
 
         try {
             $envelope = $dispatcher->dispatch($message, $stampCollection);
@@ -46,24 +47,22 @@ final class DefaultDispatcherTest extends TestCase
         }
     }
 
-    public function scenarios()
+    public function provideDispatchCases(): iterable
     {
         $envelopeFactory = new BasicEnvelopeFactory();
         $givenEnvelope = new BasicEnvelope(
             $this->stubMessage(),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         yield 'empty stack must return initial envelope' => [
-            'dispatcher factory' => function () use ($envelopeFactory) {
-                return new DefaultDispatcher(
-                    $envelopeFactory,
-                    new MiddlewareStack([])
-                );
-            },
+            'dispatcher factory' => static fn () => new DefaultDispatcher(
+                $envelopeFactory,
+                new MiddlewareStack([]),
+            ),
             'message' => $givenEnvelope->message(),
             'stamps' => $givenEnvelope->stamps(),
-            'assertion callback' => function (Envelope $actualEnvelope) use ($givenEnvelope) {
+            'assertion callback' => static function (Envelope $actualEnvelope) use ($givenEnvelope): void {
                 self::assertEquals($givenEnvelope, $actualEnvelope);
             },
         ];
@@ -71,39 +70,33 @@ final class DefaultDispatcherTest extends TestCase
         $expectedException = new Exception('something went wrong');
 
         yield 'failing stack must throw exception' => [
-            'dispatcher factory' => function () use ($envelopeFactory, $expectedException) {
-                return new DefaultDispatcher(
-                    $envelopeFactory,
-                    new MiddlewareStack([
-                        new FailingMiddleware($expectedException),
-                    ])
-                );
-            },
+            'dispatcher factory' => static fn () => new DefaultDispatcher(
+                $envelopeFactory,
+                new MiddlewareStack([
+                    new FailingMiddleware($expectedException),
+                ]),
+            ),
             'message' => $givenEnvelope->message(),
             'stamps' => $givenEnvelope->stamps(),
-            'assertion callback' => function (Exception $exception) use ($expectedException) {
+            'assertion callback' => static function (Exception $exception) use ($expectedException): void {
                 self::assertEquals($expectedException, $exception);
             },
         ];
 
-        $middleware = new CallbackMiddleware(function (Envelope $envelope) {
-            return $envelope->withStamp(
-                new StubStamp('sample-key', 'sample-value')
-            );
-        });
+        $middleware = new CallbackMiddleware(static fn (Envelope $envelope) => $envelope->withStamp(
+            new StubStamp('sample-key', 'sample-value'),
+        ));
 
         yield 'successful stack must return another envelope' => [
-            'dispatcher factory' => function () use ($envelopeFactory, $middleware) {
-                return new DefaultDispatcher(
-                    $envelopeFactory,
-                    new MiddlewareStack([
-                        $middleware,
-                    ])
-                );
-            },
+            'dispatcher factory' => static fn () => new DefaultDispatcher(
+                $envelopeFactory,
+                new MiddlewareStack([
+                    $middleware,
+                ]),
+            ),
             'message' => $givenEnvelope->message(),
             'stamps' => $givenEnvelope->stamps(),
-            'assertion callback' => function (Envelope $actualEnvelope) {
+            'assertion callback' => static function (Envelope $actualEnvelope): void {
                 /** @var StubStamp $stamp */
                 $stamp = $actualEnvelope->stamps()->last('sample-key');
                 self::assertInstanceOf(StubStamp::class, $stamp);
@@ -113,7 +106,7 @@ final class DefaultDispatcherTest extends TestCase
         ];
     }
 
-    private function stubMessage()
+    private function stubMessage(): StubMessage
     {
         return new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']);
     }

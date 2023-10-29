@@ -11,17 +11,9 @@ use MiniBus\Handler\HandlerLocator;
 final class SubjectLocator implements HandlerLocator
 {
     /**
-     * @var HandlerCollection[]
-     */
-    private $handlersPerSubject;
-
-    /**
      * @param HandlerCollection[] $handlersPerSubject
      */
-    public function __construct(array $handlersPerSubject)
-    {
-        $this->handlersPerSubject = $handlersPerSubject;
-    }
+    public function __construct(private array $handlersPerSubject) {}
 
     public function locate(Envelope $envelope): HandlerCollection
     {

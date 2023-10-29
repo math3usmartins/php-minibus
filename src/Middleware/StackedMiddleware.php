@@ -9,24 +9,15 @@ use MiniBus\Middleware;
 
 final class StackedMiddleware implements Middleware
 {
-    /**
-     * @var Middleware
-     */
-    private $current;
+    public function __construct(
+        private Middleware $current,
+        private ?Middleware $next = null,
+    ) {}
 
-    /**
-     * @var Middleware|null
-     */
-    private $next;
-
-    public function __construct(Middleware $current, Middleware $next = null)
-    {
-        $this->current = $current;
-        $this->next = $next;
-    }
-
-    public function handle(Envelope $envelope, Middleware $next = null): Envelope
-    {
+    public function handle(
+        Envelope $envelope,
+        Middleware $next = null,
+    ): Envelope {
         return $this->current->handle($envelope, $this->next ?: $next);
     }
 }

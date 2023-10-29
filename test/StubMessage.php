@@ -8,30 +8,12 @@ use MiniBus\Message;
 
 final class StubMessage implements Message
 {
-    /**
-     * @var string
-     */
-    private $subject;
-
-    /**
-     * @var array
-     */
-    private $headers;
-
-    /**
-     * @var array
-     */
-    private $body;
-
+    /** @phpstan-ignore-next-line */
     public function __construct(
-        string $subject,
-        array $headers,
-        array $body
-    ) {
-        $this->subject = $subject;
-        $this->headers = $headers;
-        $this->body = $body;
-    }
+        private string $subject,
+        private array $headers,
+        private array $body,
+    ) {}
 
     public function subject(): string
     {

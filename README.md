@@ -23,6 +23,7 @@ Don't be fooled though, `MiniBus` is a modern package as you'll see below.
 |-----|---------|
 | 5.6 | 1.x     |
 | 7.x | 2.x     |
+| 8.x | 3.x     |
 
 ## Inspiration
 
@@ -63,7 +64,7 @@ p.s. metrics generated using [Sonarqube](https://github.com/SonarSource/sonarqub
 
 | Measure                         | MiniBus | Messenger | MiniBus' Price |
 |---------------------------------|---------|-----------|----------------|
-| Lines of code (LOC)             | 356     | 4600      | 7%             |
+| Lines of code (LOC)             | 348     | 4600      | 7%             |
 | Cyclomatic complexity           | 57      | 850       | 7%             |
 | ....................... per LOC | 0.16    | 0.18      | 88%            |
 | Cognitive complexity            | 10      | 760       | 1%             |
@@ -89,7 +90,7 @@ p.s. metrics generated using [Sonarqube](https://github.com/SonarSource/sonarqub
 
 | Measure                         | MiniBus | SimpleBus | MiniBus' Price |
 |---------------------------------|---------|-----------|----------------|
-| Lines of code (LOC)             | 356     | 459       | 77%            |
+| Lines of code (LOC)             | 348     | 459       | 76%            |
 | Cyclomatic complexity           | 57      | 81        | 70%            |
 | ....................... per LOC | 0.16    | 0.18      | 94%            |
 | Cognitive complexity            | 10      | 37        | 27%            |

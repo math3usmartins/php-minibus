@@ -10,23 +10,25 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \MiniBus\Envelope\Stamp\StampCollection
  */
 final class StampCollectionTest extends TestCase
 {
     /**
      * @param bool $expected
-     * @dataProvider has_given_stamp_scenarios
+     *
+     * @dataProvider provideHasGivenStampCases
      */
     public function testHasGivenStamp(
         StampCollection $collection,
         Stamp $stamp,
-        $expected
-    ) {
-        static::assertEquals($expected, $collection->contains($stamp));
+        $expected,
+    ): void {
+        self::assertEquals($expected, $collection->contains($stamp));
     }
 
-    public function has_given_stamp_scenarios()
+    public function provideHasGivenStampCases(): iterable
     {
         $fooStampName = 'foo';
         $fooStampValue = 'bar';
@@ -56,17 +58,18 @@ final class StampCollectionTest extends TestCase
     /**
      * @param string          $name
      * @param StampCollection $expected
-     * @dataProvider find_all_stamps_scenarios
+     *
+     * @dataProvider provideFindAllStampsCases
      */
     public function testFindAllStamps(
         StampCollection $collection,
         $name,
-        $expected
-    ) {
-        static::assertEquals($expected, $collection->all($name));
+        $expected,
+    ): void {
+        self::assertEquals($expected, $collection->all($name));
     }
 
-    public function find_all_stamps_scenarios()
+    public function provideFindAllStampsCases(): iterable
     {
         $fooStampName = 'foo';
         $fooStampValue = 'bar';
@@ -102,17 +105,18 @@ final class StampCollectionTest extends TestCase
     /**
      * @param string     $name
      * @param Stamp|null $expected
-     * @dataProvider find_last_stamp_scenarios
+     *
+     * @dataProvider provideFindLastStampCases
      */
     public function testFindLastStamp(
         StampCollection $collection,
         $name,
-        $expected
-    ) {
-        static::assertEquals($expected, $collection->last($name));
+        $expected,
+    ): void {
+        self::assertEquals($expected, $collection->last($name));
     }
 
-    public function find_last_stamp_scenarios()
+    public function provideFindLastStampCases(): iterable
     {
         $fooStampName = 'foo';
         $fooStampValue = 'bar';
@@ -146,17 +150,17 @@ final class StampCollectionTest extends TestCase
     }
 
     /**
-     * @dataProvider with_stamp_scenarios
+     * @dataProvider provideWithStampCases
      */
     public function testWithStamp(
         StampCollection $collection,
         Stamp $stamp,
-        StampCollection $expected
-    ) {
-        static::assertEquals($expected, $collection->with($stamp));
+        StampCollection $expected,
+    ): void {
+        self::assertEquals($expected, $collection->with($stamp));
     }
 
-    public function with_stamp_scenarios()
+    public function provideWithStampCases(): iterable
     {
         $fooStampName = 'foo';
         $fooStampValue = 'bar';

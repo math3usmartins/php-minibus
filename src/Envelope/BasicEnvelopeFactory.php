@@ -10,8 +10,10 @@ use MiniBus\Message;
 
 final class BasicEnvelopeFactory implements EnvelopeFactory
 {
-    public function create(Message $message, StampCollection $stamps): Envelope
-    {
+    public function create(
+        Message $message,
+        StampCollection $stamps,
+    ): Envelope {
         return new BasicEnvelope($message, $stamps);
     }
 }

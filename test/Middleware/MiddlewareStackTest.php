@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MiniBus\Test\Middleware;
 
-use Generator;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
 use MiniBus\Middleware\MiddlewareStack;
@@ -13,31 +12,32 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \MiniBus\Middleware\MiddlewareStack
  * @covers \MiniBus\Middleware\StackedMiddleware
  */
 final class MiddlewareStackTest extends TestCase
 {
     /**
-     * @dataProvider scenarios
+     * @dataProvider provideItDoesCallHandlersAsExpectedCases
      */
-    public function testItDoesCallHandlersAsExpected(MiddlewareStack $stack, callable $assertionCallback)
+    public function testItDoesCallHandlersAsExpected(MiddlewareStack $stack, callable $assertionCallback): void
     {
         $envelope = new BasicEnvelope(
             $this->stubMessage(),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         $assertionCallback(
-            $stack->handle($envelope)
+            $stack->handle($envelope),
         );
     }
 
-    public function scenarios(): Generator
+    public function provideItDoesCallHandlersAsExpectedCases(): iterable
     {
         yield 'it supports empty array' => [
             'stack' => new MiddlewareStack([]),
-            'callback' => function (BasicEnvelope $envelope) {
+            'callback' => function (BasicEnvelope $envelope): void {
                 self::assertEquals($this->stubMessage(), $envelope->message());
             },
         ];
@@ -48,7 +48,7 @@ final class MiddlewareStackTest extends TestCase
                 $b = new StubMiddleware(),
                 $c = new StubMiddleware(),
             ]),
-            'callback' => function () use ($a, $b, $c) {
+            'callback' => static function () use ($a, $b, $c): void {
                 self::assertTrue($a->handled());
                 self::assertTrue($b->handled());
                 self::assertTrue($c->handled());
@@ -61,7 +61,7 @@ final class MiddlewareStackTest extends TestCase
                 $b = new StubMiddleware(),
                 $c = new StubMiddleware(),
             ]),
-            'callback' => function () use ($a, $b, $c) {
+            'callback' => static function () use ($a, $b, $c): void {
                 self::assertTrue($a->handled());
                 self::assertFalse($b->handled());
                 self::assertFalse($c->handled());
@@ -74,7 +74,7 @@ final class MiddlewareStackTest extends TestCase
                 $b = new StubMiddleware(false),
                 $c = new StubMiddleware(),
             ]),
-            'callback' => function () use ($a, $b, $c) {
+            'callback' => static function () use ($a, $b, $c): void {
                 self::assertTrue($a->handled());
                 self::assertTrue($b->handled());
                 self::assertFalse($c->handled());
@@ -92,7 +92,7 @@ final class MiddlewareStackTest extends TestCase
                 $b = new StubMiddleware(),
                 $c = new StubMiddleware(),
             ]),
-            'callback' => function () use ($a, $b, $c, $n1, $n2, $n3) {
+            'callback' => static function () use ($a, $b, $c, $n1, $n2, $n3): void {
                 self::assertTrue($a->handled());
                 self::assertTrue($b->handled());
                 self::assertTrue($c->handled());
@@ -113,7 +113,7 @@ final class MiddlewareStackTest extends TestCase
                 ]),
                 $c = new StubMiddleware(),
             ]),
-            'callback' => function () use ($a, $b, $c, $n1, $n2, $n3) {
+            'callback' => static function () use ($a, $b, $c, $n1, $n2, $n3): void {
                 self::assertTrue($a->handled());
                 self::assertTrue($b->handled());
                 self::assertTrue($c->handled());
@@ -134,7 +134,7 @@ final class MiddlewareStackTest extends TestCase
                     $n3 = new StubMiddleware(),
                 ]),
             ]),
-            'callback' => function () use ($a, $b, $c, $n1, $n2, $n3) {
+            'callback' => static function () use ($a, $b, $c, $n1, $n2, $n3): void {
                 self::assertTrue($a->handled());
                 self::assertTrue($b->handled());
                 self::assertTrue($c->handled());

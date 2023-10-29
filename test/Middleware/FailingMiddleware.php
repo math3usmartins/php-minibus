@@ -10,15 +10,7 @@ use MiniBus\Middleware;
 
 final class FailingMiddleware implements Middleware
 {
-    /**
-     * @var Exception
-     */
-    private $exception;
-
-    public function __construct(Exception $exception)
-    {
-        $this->exception = $exception;
-    }
+    public function __construct(private Exception $exception) {}
 
     public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {

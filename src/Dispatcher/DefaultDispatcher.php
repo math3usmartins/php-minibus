@@ -13,28 +13,17 @@ use MiniBus\Middleware\MiddlewareStack;
 
 final class DefaultDispatcher implements MessageDispatcher
 {
-    /**
-     * @var EnvelopeFactory
-     */
-    private $envelopeFactory;
-
-    /**
-     * @var MiddlewareStack
-     */
-    private $stack;
-
     public function __construct(
-        EnvelopeFactory $envelopeFactory,
-        MiddlewareStack $stack
-    ) {
-        $this->envelopeFactory = $envelopeFactory;
-        $this->stack = $stack;
-    }
+        private EnvelopeFactory $envelopeFactory,
+        private MiddlewareStack $stack,
+    ) {}
 
-    public function dispatch(Message $message, StampCollection $stamps): Envelope
-    {
+    public function dispatch(
+        Message $message,
+        StampCollection $stamps,
+    ): Envelope {
         return $this->stack->handle(
-            $this->envelopeFactory->create($message, $stamps)
+            $this->envelopeFactory->create($message, $stamps),
         );
     }
 }

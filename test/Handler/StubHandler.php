@@ -10,15 +10,7 @@ use MiniBus\Handler;
 
 final class StubHandler implements Handler
 {
-    /**
-     * @var Envelope|null
-     */
-    private $result;
-
-    public function __construct(Envelope $result = null)
-    {
-        $this->result = $result;
-    }
+    public function __construct(private ?Envelope $result = null) {}
 
     /**
      * @throws Exception

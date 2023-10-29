@@ -7,3 +7,4 @@
 /.scannerwork
 /coverage.xml
 /.php-cs-fixer.cache
+/.phpunit.result.cache

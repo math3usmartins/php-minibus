@@ -9,6 +9,10 @@ php-cs-fix:
 test:
 	docker compose run --rm php vendor/bin/phpunit
 
+.PHONY: rector
+rector:
+	docker compose run --rm php vendor/bin/rector
+
 .PHONY: phpstan
 phpstan:
 	docker compose run --rm php vendor/bin/phpstan analyse \

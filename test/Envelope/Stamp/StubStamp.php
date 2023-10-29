@@ -8,21 +8,7 @@ use MiniBus\Envelope\Stamp;
 
 final class StubStamp implements Stamp
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $keyValue;
-
-    public function __construct(string $name, string $keyValue)
-    {
-        $this->name = $name;
-        $this->keyValue = $keyValue;
-    }
+    public function __construct(private string $name, private string $keyValue) {}
 
     public function name(): string
     {

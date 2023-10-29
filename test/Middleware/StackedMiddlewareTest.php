@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MiniBus\Test\Middleware;
 
-use Generator;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
 use MiniBus\Middleware;
@@ -14,36 +13,37 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \MiniBus\Middleware\StackedMiddleware
  */
 final class StackedMiddlewareTest extends TestCase
 {
     /**
-     * @dataProvider scenarios
+     * @dataProvider provideItDoesCallHandlersAsExpectedCases
      */
     public function testItDoesCallHandlersAsExpected(
         callable $assertionCallback,
         StackedMiddleware $stacked,
-        Middleware $next = null
-    ) {
+        Middleware $next = null,
+    ): void {
         $envelope = new BasicEnvelope(
             new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         $assertionCallback(
-            $stacked->handle($envelope, $next)
+            $stacked->handle($envelope, $next),
         );
     }
 
-    public function scenarios(): Generator
+    public function provideItDoesCallHandlersAsExpectedCases(): iterable
     {
         $current = new StubMiddleware();
         $nextViaConstructor = new StubMiddleware();
         $nextViaHandler = new StubMiddleware();
 
         yield 'it must call next via constructor' => [
-            'callback' => function () use ($current, $nextViaConstructor, $nextViaHandler) {
+            'callback' => static function () use ($current, $nextViaConstructor, $nextViaHandler): void {
                 self::assertTrue($current->handled());
                 self::assertTrue($nextViaConstructor->handled());
                 self::assertFalse($nextViaHandler->handled());
@@ -56,7 +56,7 @@ final class StackedMiddlewareTest extends TestCase
         $nextViaHandler = new StubMiddleware();
 
         yield 'it must call next via handle' => [
-            'callback' => function () use ($current, $nextViaHandler) {
+            'callback' => static function () use ($current, $nextViaHandler): void {
                 self::assertTrue($current->handled());
                 self::assertTrue($nextViaHandler->handled());
             },

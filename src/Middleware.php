@@ -6,5 +6,8 @@ namespace MiniBus;
 
 interface Middleware
 {
-    public function handle(Envelope $envelope, self $next = null): Envelope;
+    public function handle(
+        Envelope $envelope,
+        self $next = null,
+    ): Envelope;
 }

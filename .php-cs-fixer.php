@@ -13,6 +13,8 @@ $rules = [
     '@Symfony' => true,
     '@PHP70Migration' => true,
     '@PHP70Migration:risky' => true,
+    '@PHP80Migration' => true,
+    '@PHP80Migration:risky' => true,
 
     'date_time_immutable' => true,
     'final_class' => true,
@@ -31,6 +33,15 @@ $rules = [
         'strategy' => 'no_multi_line',
     ],
 
+    'trailing_comma_in_multiline' => [
+        'elements' => [
+            'arguments',
+            'arrays',
+            'match',
+            'parameters',
+        ],
+    ],
+
     'ordered_imports' => [
         'sort_algorithm' => 'alpha',
         'imports_order' => [
@@ -41,6 +52,12 @@ $rules = [
     ],
 
     'phpdoc_no_empty_return' => false,
+    'single_line_empty_body' => true,
+    'method_argument_space' => [
+        'attribute_placement' => 'standalone',
+        'keep_multiple_spaces_after_comma' => false,
+        'on_multiline' => 'ensure_fully_multiline',
+    ],
 ];
 
 return $config->setRules($rules)

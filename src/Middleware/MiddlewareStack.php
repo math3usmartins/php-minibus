@@ -6,6 +6,7 @@ namespace MiniBus\Middleware;
 
 use MiniBus\Envelope;
 use MiniBus\Middleware;
+
 use function array_slice;
 
 final class MiddlewareStack implements Middleware
@@ -13,7 +14,7 @@ final class MiddlewareStack implements Middleware
     /**
      * @var Middleware[]
      */
-    private $middlewares;
+    private array $middlewares;
 
     /**
      * @param Middleware[] $middlewares
@@ -23,8 +24,10 @@ final class MiddlewareStack implements Middleware
         $this->middlewares = array_values($middlewares);
     }
 
-    public function handle(Envelope $envelope, Middleware $next = null): Envelope
-    {
+    public function handle(
+        Envelope $envelope,
+        Middleware $next = null,
+    ): Envelope {
         // the stack must be created at handle time, to call the next handler
         // as the last one.
         // also, it needs to be created starting from the last middleware.
@@ -37,7 +40,7 @@ final class MiddlewareStack implements Middleware
         $middlewares = array_reverse(
             $next
                 ? array_merge($this->middlewares, [$next])
-                : $this->middlewares
+                : $this->middlewares,
         );
 
         if (empty($middlewares)) {
@@ -46,11 +49,10 @@ final class MiddlewareStack implements Middleware
 
         $stack = array_reduce(
             array_slice($middlewares, 1),
-            function (Middleware $carry, Middleware $current) {
+            static fn (Middleware $carry, Middleware $current) =>
                 // p.s. carry (previous) becomes next middleware.
-                return new StackedMiddleware($current, $carry);
-            },
-            $middlewares[0]
+                new StackedMiddleware($current, $carry),
+            $middlewares[0],
         );
 
         return $stack->handle($envelope);

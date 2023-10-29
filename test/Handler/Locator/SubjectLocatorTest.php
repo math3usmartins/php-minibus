@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MiniBus\Test\Handler\Locator;
 
-use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
@@ -16,22 +15,23 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \MiniBus\Handler\Locator\SubjectLocator
  */
 final class SubjectLocatorTest extends TestCase
 {
     /**
-     * @dataProvider scenarios
+     * @dataProvider provideItDoesLocatePerSubjectCases
      */
     public function testItDoesLocatePerSubject(
         SubjectLocator $locator,
         Envelope $envelope,
-        HandlerCollection $expectedCollection
-    ) {
-        static::assertEquals($expectedCollection, $locator->locate($envelope));
+        HandlerCollection $expectedCollection,
+    ): void {
+        self::assertEquals($expectedCollection, $locator->locate($envelope));
     }
 
-    public function scenarios(): Generator
+    public function provideItDoesLocatePerSubjectCases(): iterable
     {
         $collection = new HandlerCollection([
             new StubHandler(),
@@ -51,7 +51,7 @@ final class SubjectLocatorTest extends TestCase
             'locator' => $locator,
             'envelope' => new BasicEnvelope(
                 new StubMessage('yet-another-subject', [], []),
-                new StampCollection([])
+                new StampCollection([]),
             ),
             'expected' => new HandlerCollection([]),
         ];
@@ -60,7 +60,7 @@ final class SubjectLocatorTest extends TestCase
             'locator' => $locator,
             'envelope' => new BasicEnvelope(
                 new StubMessage('some-subject', [], []),
-                new StampCollection([])
+                new StampCollection([]),
             ),
             'expected' => $collection,
         ];
@@ -69,7 +69,7 @@ final class SubjectLocatorTest extends TestCase
             'locator' => $locator,
             'envelope' => new BasicEnvelope(
                 new StubMessage('another-subject', [], []),
-                new StampCollection([])
+                new StampCollection([]),
             ),
             'expected' => $anotherLocation,
         ];

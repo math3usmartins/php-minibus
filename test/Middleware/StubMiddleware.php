@@ -9,14 +9,9 @@ use MiniBus\Middleware;
 
 final class StubMiddleware implements Middleware
 {
-    private $handled = false;
+    private bool $handled = false;
 
-    private $callNext;
-
-    public function __construct($callNext = true)
-    {
-        $this->callNext = $callNext;
-    }
+    public function __construct(private bool $callNext = true) {}
 
     public function handle(Envelope $envelope, Middleware $next = null): Envelope
     {

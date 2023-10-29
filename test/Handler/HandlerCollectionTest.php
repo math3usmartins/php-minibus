@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MiniBus\Test\Handler;
 
-use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\Stamp\StampCollection;
@@ -14,29 +13,30 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \MiniBus\Envelope\BasicEnvelope
  * @covers \MiniBus\Handler\HandlerCollection
  */
 final class HandlerCollectionTest extends TestCase
 {
     /**
-     * @dataProvider handleScenarios
+     * @dataProvider provideHandleCases
      */
     public function testHandle(
         HandlerCollection $collection,
         Envelope $envelope,
-        Envelope $expected
-    ) {
-        static::assertEquals($expected, $collection->handle($envelope));
+        Envelope $expected,
+    ): void {
+        self::assertEquals($expected, $collection->handle($envelope));
     }
 
-    public function handleScenarios(): Generator
+    public function provideHandleCases(): iterable
     {
         $subject = 'some-subject';
 
         $envelope = new BasicEnvelope(
             new StubMessage($subject, ['header' => 'h'], ['body' => 'v']),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         yield 'empty collection' => [
@@ -47,12 +47,12 @@ final class HandlerCollectionTest extends TestCase
 
         $anotherEnvelope = new BasicEnvelope(
             new StubMessage($subject, ['header' => 'x'], ['body' => 'z']),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         $yetAnotherEnvelope = new BasicEnvelope(
             new StubMessage($subject, ['header' => 'xz'], ['body' => 'zy']),
-            new StampCollection([])
+            new StampCollection([]),
         );
 
         yield 'single handler' => [

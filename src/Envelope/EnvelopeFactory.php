@@ -10,5 +10,8 @@ use MiniBus\Message;
 
 interface EnvelopeFactory
 {
-    public function create(Message $message, StampCollection $stamps): Envelope;
+    public function create(
+        Message $message,
+        StampCollection $stamps,
+    ): Envelope;
 }

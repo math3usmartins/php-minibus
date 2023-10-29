@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MiniBus\Test\Envelope;
 
 use Closure;
-use Generator;
 use MiniBus\Envelope;
 use MiniBus\Envelope\BasicEnvelope;
 use MiniBus\Envelope\EnvelopeCollection;
@@ -22,17 +21,17 @@ use PHPUnit\Framework\TestCase;
 final class EnvelopeCollectionTest extends TestCase
 {
     /**
-     * @dataProvider mapScenarios
+     * @dataProvider provideMapCases
      */
     public function testMap(
         EnvelopeCollection $givenCollection,
         Closure $closure,
-        EnvelopeCollection $expectedCollection
-    ) {
-        static::assertEquals($expectedCollection, $givenCollection->map($closure));
+        EnvelopeCollection $expectedCollection,
+    ): void {
+        self::assertEquals($expectedCollection, $givenCollection->map($closure));
     }
 
-    public function mapScenarios(): Generator
+    public function provideMapCases(): iterable
     {
         $message = new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']);
         $envelope = new BasicEnvelope($message, new StampCollection([]));
@@ -40,9 +39,7 @@ final class EnvelopeCollectionTest extends TestCase
 
         yield 'add stamp' => [
             'collection' => new EnvelopeCollection([$envelope]),
-            'callback' => function (Envelope $envelope) use ($stamp) {
-                return $envelope->withStamp($stamp);
-            },
+            'callback' => static fn (Envelope $envelope) => $envelope->withStamp($stamp),
             'expected collection' => new EnvelopeCollection([
                 $envelope->withStamp($stamp),
             ]),
@@ -50,17 +47,17 @@ final class EnvelopeCollectionTest extends TestCase
     }
 
     /**
-     * @dataProvider filterScenarios
+     * @dataProvider provideFilterCases
      */
     public function testFilter(
         EnvelopeCollection $givenCollection,
         Closure $closure,
-        EnvelopeCollection $expectedCollection
-    ) {
-        static::assertEquals($expectedCollection, $givenCollection->filter($closure));
+        EnvelopeCollection $expectedCollection,
+    ): void {
+        self::assertEquals($expectedCollection, $givenCollection->filter($closure));
     }
 
-    public function filterScenarios()
+    public function provideFilterCases(): iterable
     {
         $message = new StubMessage('some-subject', ['header' => 'h'], ['body' => 'v']);
 
@@ -75,25 +72,19 @@ final class EnvelopeCollectionTest extends TestCase
 
         yield 'no matching items' => [
             'collection' => new EnvelopeCollection([$envelope, $anotherEnvelope]),
-            'callback' => function () {
-                return false;
-            },
+            'callback' => static fn () => false,
             'expected collection' => new EnvelopeCollection([]),
         ];
 
         yield 'all items matching' => [
             'collection' => new EnvelopeCollection([$envelope, $anotherEnvelope]),
-            'callback' => function () {
-                return true;
-            },
+            'callback' => static fn () => true,
             'expected collection' => new EnvelopeCollection([$envelope, $anotherEnvelope]),
         ];
 
         yield 'single matching item' => [
             'collection' => new EnvelopeCollection([$envelope, $anotherEnvelope]),
-            'callback' => function (Envelope $envelope) use ($anotherStamp) {
-                return $envelope->stamps()->contains($anotherStamp);
-            },
+            'callback' => static fn (Envelope $envelope) => $envelope->stamps()->contains($anotherStamp),
             'expected collection' => new EnvelopeCollection([
                 $anotherEnvelope,
             ]),

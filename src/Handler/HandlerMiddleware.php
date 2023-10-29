@@ -9,19 +9,12 @@ use MiniBus\Middleware;
 
 final class HandlerMiddleware implements Middleware
 {
-    /**
-     * @var HandlerLocator
-     */
-    private $locator;
+    public function __construct(private HandlerLocator $locator) {}
 
-    public function __construct(
-        HandlerLocator $locator
-    ) {
-        $this->locator = $locator;
-    }
-
-    public function handle(Envelope $envelope, Middleware $next = null): Envelope
-    {
+    public function handle(
+        Envelope $envelope,
+        Middleware $next = null,
+    ): Envelope {
         $stamped = $this->locator->locate($envelope)
             ->handle($envelope)
             ->withStamp(new HandlerStamp());

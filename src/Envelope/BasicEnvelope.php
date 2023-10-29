@@ -10,27 +10,16 @@ use MiniBus\Message;
 
 final class BasicEnvelope implements Envelope
 {
-    /**
-     * @var Message
-     */
-    private $message;
-
-    /**
-     * @var StampCollection
-     */
-    private $stamps;
-
-    public function __construct(Message $message, StampCollection $stamps)
-    {
-        $this->message = $message;
-        $this->stamps = $stamps;
-    }
+    public function __construct(
+        private Message $message,
+        private StampCollection $stamps,
+    ) {}
 
     public function withStamp(Stamp $stamp): Envelope
     {
         return new self(
             $this->message,
-            $this->stamps->with($stamp)
+            $this->stamps->with($stamp),
         );
     }
 

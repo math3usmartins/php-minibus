@@ -8,5 +8,8 @@ use MiniBus\Envelope\Stamp\StampCollection;
 
 interface MessageDispatcher
 {
-    public function dispatch(Message $message, StampCollection $stamps): Envelope;
+    public function dispatch(
+        Message $message,
+        StampCollection $stamps,
+    ): Envelope;
 }

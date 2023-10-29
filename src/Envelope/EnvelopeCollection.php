@@ -12,7 +12,7 @@ final class EnvelopeCollection
     /**
      * @var Envelope[]
      */
-    private $items;
+    private array $items;
 
     /**
      * @param Envelope[] $items
@@ -30,9 +30,6 @@ final class EnvelopeCollection
         return $this->items;
     }
 
-    /**
-     * @return self
-     */
     public function with(Envelope $envelope): self
     {
         return new self(array_merge($this->items, [$envelope]));
@@ -59,7 +56,7 @@ final class EnvelopeCollection
     public function filter(Closure $closure)
     {
         $matchingItems = array_values(
-            array_filter($this->items, $closure)
+            array_filter($this->items, $closure),
         );
 
         return new self($matchingItems);

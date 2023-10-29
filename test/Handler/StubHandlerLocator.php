@@ -10,15 +10,7 @@ use MiniBus\Handler\HandlerLocator;
 
 final class StubHandlerLocator implements HandlerLocator
 {
-    /**
-     * @var HandlerCollection
-     */
-    private $handlerCollection;
-
-    public function __construct(HandlerCollection $handlerCollection)
-    {
-        $this->handlerCollection = $handlerCollection;
-    }
+    public function __construct(private HandlerCollection $handlerCollection) {}
 
     public function locate(Envelope $envelope): HandlerCollection
     {

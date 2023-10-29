@@ -11,7 +11,7 @@ final class StampCollection
     /**
      * @var Stamp[][]
      */
-    private $items;
+    private array $items;
 
     /**
      * @param Stamp[] $items
@@ -79,13 +79,13 @@ final class StampCollection
     {
         return array_reduce(
             $items,
-            function (array $carry, Stamp $stamp) {
+            static function (array $carry, Stamp $stamp) {
                 $name = $stamp->name();
                 $carry[$name][] = $stamp;
 
                 return $carry;
             },
-            []
+            [],
         );
     }
 
@@ -96,10 +96,8 @@ final class StampCollection
     {
         return array_reduce(
             $this->items,
-            function (array $flat, array $subItems) {
-                return array_merge($flat, $subItems);
-            },
-            []
+            static fn (array $flat, array $subItems) => array_merge($flat, $subItems),
+            [],
         );
     }
 }
